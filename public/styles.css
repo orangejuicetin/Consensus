@@ -74,6 +74,7 @@ dfn {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+  text-align: center;
 }
 mark {
   background-color: #ff0;
@@ -261,6 +262,7 @@ h2 {
   text-rendering: optimizeLegibility;
   font-size: 1.62671rem;
   line-height: 1.1;
+  text-align: center;
 }
 h3 {
   margin-left: 0;
@@ -619,4 +621,9 @@ pre tt:after {
   html {
     font-size: 100%;
   }
+}
+
+/* extra classes */
+.text-center {
+  text-align: center;
 }
