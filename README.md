@@ -2,9 +2,9 @@
 
 ## Consensus is an app that will change how your group decides
 
-Normally, with typical groupchats or polls made in FB mesenger, it always ends in a bunch of confusion or lack of participation:
+Normally, when deciding things as a group, it always ends in a mess of indecision.
 
-When filling out a when2meet, the interface looks like it's from 1995 and you can't even tell which time is the one when most are available or who can even make it
+When filling out a when2meet, the interface looks like it's from 1995 and you can't even tell which time is the one when most are available or who can even make it.
 
 When you make a poll in your FB Messenger groupchat, you get only about half the people to respond and you get decision fatigue from how busy the chat is or how frequently the poll seems to update itself with options. Want to even delete the poll after you make it? Well too bad, FB apparently didn't think of that either.
 
