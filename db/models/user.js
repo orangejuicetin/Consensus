@@ -1,14 +1,14 @@
-const S = require('sequelize');
+const Sequelize = require('sequelize');
 
 // Schema for user
 module.exports = {
   username: {
-    type: S.STRING
+    type: Sequelize.STRING
   },
   password: {
-    type: S.STRING
+    type: Sequelize.STRING
   },
   name: {
-    type: S.STRING
+    type: Sequelize.STRING
   }
 };
