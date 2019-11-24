@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <!-- Material Design for Bootstrap fonts and icons -->
     <link
       rel="stylesheet"
@@ -20,32 +20,45 @@
       integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
       crossorigin="anonymous"
     />
-
-    <!-- personal css -->
-    <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
       integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
       crossorigin="anonymous"
     />
+
+    <!-- personal css  -->
+    <link rel="stylesheet" href="styles.css" />
     <title>Consensus</title>
   </head>
   <body>
     <h1 class="container">Consensus</h1>
-    <div class="btn-group text-center container">
-      <button class="btn btn-secondary">
-        hello there
-      </button>
-      <button class="btn btn-secondary">
-        another column
-      </button>
-      <button class="btn btn-secondary">
-        another one
-      </button>
-    </div>
 
-    <!-- Bootstrap  -->
+    <!-- login/signup buttons  -->
+    <div class="container">
+      <form action="/login" method="post">
+        <div>
+          <label for="username">username</label>
+          <input type="text" name="username" />
+        </div>
+        <div>
+          <label for="password">password</label>
+          <input type="password" name="password" />
+        </div>
+        <div>
+          <button class="btn btn-secondary" type="submit">Log In</button>
+        </div>
+      </form>
+      <div class="btn-group-vertical container">
+        <button class="btn btn-secondary">
+          Log In
+        </button>
+        <button class="btn btn-secondary">
+          Sign Up!
+        </button>
+      </div>
+    </div>
+    <!--  scripts  -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.min.js"
       integrity="sha256-GYcdwXot2kSaBb8kr9o8zDKYBwQ1PCkugjcCYFQS+IA="
@@ -73,3 +86,4 @@
     </script>
   </body>
 </html>
+<html></html>

@@ -1,13 +1,13 @@
 var webpack = require('webpack');
-var path = require('path');
 
 var config = {
-  mode: 'production',
-  entry: './src/frontend/index',
+  mode: 'development',
+  entry: {
+    bundle: __dirname + '/src/frontend/index.js'
+  },
   output: {
     path: __dirname + '/public'
   },
-  filename: 'bundle.js',
   module: {
     rules: [
       {
