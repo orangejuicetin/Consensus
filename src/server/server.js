@@ -9,8 +9,7 @@ import passport from 'passport';
 // import passportFunctions from 'passportFunctions';
 import flash from 'connect-flash';
 const LocalStrategy = require('passport-local').Strategy;
-import db from '../../db/dbconnect';
-import { createBrotliCompress } from 'zlib';
+import { user } from '../../db/dbconnect';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -29,12 +28,18 @@ app.use(bodyparser.urlencoded({ extended: true }));
 // allow for use of message flash
 app.use(flash());
 
-// setting up passport.js
+// set static files path
+app.use(express.static(path.join(__dirname, 'public')));
+
+// connect to the database
+// require('../../db/dbconnect');
+
+// setting up passport.js for authentication
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(
   new LocalStrategy(function(username, password, done) {
-    db.user.findByUsername(username, function(err, user) {
+    user.findByUsername(username, function(err, user) {
       if (err) {
         return done(err);
       }
@@ -48,12 +53,6 @@ passport.use(
     });
   })
 );
-
-// set static files path
-app.use(express.static(path.join(__dirname, 'public')));
-
-// connect to the database
-require('../../db/dbconnect');
 
 //
 app.get('/', (_, res) => {

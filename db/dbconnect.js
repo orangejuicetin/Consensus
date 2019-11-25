@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+import Sequelize from 'sequelize';
 
 const sequelize = new Sequelize('197_final', 'root', 'Transformers1', {
   host: 'localhost',
@@ -14,6 +14,4 @@ const user = sequelize.define('user', require('./models/user'));
 // load the models onto the database
 sequelize.sync().then(() => console.log('synced'));
 
-module.exports = {
-  user
-};
+export { user };
