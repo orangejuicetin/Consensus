@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize';
+const Sequelize = require('sequelize').Sequelize;
 
 const sequelize = new Sequelize('197_final', 'root', 'Transformers1', {
   host: 'localhost',
