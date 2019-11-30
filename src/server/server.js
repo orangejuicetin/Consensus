@@ -1,45 +1,51 @@
 /**
  * Server for the application!
  */
-import express from 'express';
-import path from 'path';
-import ejs from 'ejs';
-import bodyparser from 'body-parser';
-import passport from 'passport';
-// import passportFunctions from 'passportFunctions';
-import flash from 'connect-flash';
+const express = require('express');
+const path = require('path');
+const ejs = require('ejs');
+const bodyparser = require('body-parser');
+const passport = require('passport');
+// import passportFunctions = require 'passportFunctions';
+const flash = require('connect-flash');
 const LocalStrategy = require('passport-local').Strategy;
-import { user } from '../../db/dbconnect';
+const { user } = require('../../db/dbconnect');
 
 const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
-
 app.set('port', port);
+
+io.on('connection', function (socket) {
+  console.log('a user connected');
+});
 
 // Use EJS rendering machine
 app.set('views', __dirname + '/public');
 app.engine('html', ejs.__express);
 app.set('view engine', 'html');
 
+
 // set up bodyparser middleware
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: true }));
+http.use(bodyparser.json());
+http.use(bodyparser.urlencoded({ extended: true }));
 
 // allow for use of message flash
-app.use(flash());
+http.use(flash());
 
 // set static files path
-app.use(express.static(path.join(__dirname, 'public')));
+http.use(express.static(path.join(__dirname, 'public')));
 
 // connect to the database
 // require('../../db/dbconnect');
 
 // setting up passport.js for authentication
-app.use(passport.initialize());
-app.use(passport.session());
+http.use(passport.initialize());
+http.use(passport.session());
 passport.use(
-  new LocalStrategy(function(username, password, done) {
-    user.findByUsername(username, function(err, user) {
+  new LocalStrategy(function (username, password, done) {
+    user.findByUsername(username, function (err, user) {
       if (err) {
         return done(err);
       }
@@ -54,24 +60,22 @@ passport.use(
   })
 );
 
+
+
 //
-app.get('/', (_, res) => {
+http.get('/', (_, res) => {
   res.render('index');
 });
 
-app.get('login', (req, res) => {
+http.get('login', (req, res) => {
   res.render('login');
 });
 
-app.get('/export', (req, res) => {
-  res.json(JSON.parse(req.query.data));
-});
-
-app.get('*', (req, res) => {
+http.get('*', (req, res) => {
   res.sendFile(path.join());
 });
 
 // start server
-app.listen(app.get('port'), () => {
+http.listen(app.get('port'), () => {
   console.log('Listening...');
 });
