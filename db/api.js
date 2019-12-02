@@ -1,31 +1,44 @@
-import user from './dbconnect';
+const { User, Card } = require('./dbconnect');
 
-const findByUserName = (username, callback) => {
-  callback(
-    null,
-    user.findAll({
-      where: {
-        username: username + ''
-      }
+// database functions for the user 
+const findByCredentials = (email, password) => {
+  return User.findOne({
+    where: { email: email, password: password }
+  })
+    .then(user => {
+      return user;
     })
-  );
 };
 
-const getAllUsers = () => {
-  return user.findAll();
-};
+const createUser = ({ firstname, lastname, email, password }) => {
+  return User.create({
+    firstname,
+    lastname,
+    email,
+    password
+  })
+}
 
-const deleteUser = (name, word) => {
-  return user
-    .destroy({
-      where: {
-        username: 'name',
-        password: 'word'
-      }
-    })
-    .then(() => {
-      console.log('done');
-    });
-};
+const getUser = id => {
+  return User.findByPk(id)
+}
 
-export { getAllUsers, findByUserName, deleteUser };
+
+// database functions for cards/topics
+const createTopic = (topic, description) => {
+  return Card.create({
+    topic,
+    description
+  })
+}
+
+module.exports = {
+  User: {
+    findByCredentials,
+    createUser,
+    getUser
+  },
+  Card: {
+    createTopic
+  }
+}

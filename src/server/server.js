@@ -5,77 +5,137 @@ const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
 const bodyparser = require('body-parser');
-const passport = require('passport');
-// import passportFunctions = require 'passportFunctions';
-const flash = require('connect-flash');
-const LocalStrategy = require('passport-local').Strategy;
-const { user } = require('../../db/dbconnect');
+const io = require('socket.io');
+const session = require('express-session')
+
+// Connect to the database
+require('../../db/dbconnect');
+
+const { User } = require('../../db/api')
 
 const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+// const http = require('http').createServer(app);
+// const socketServer = io(http);
+
 const port = process.env.PORT || 3000;
 app.set('port', port);
 
-io.on('connection', function (socket) {
-  console.log('a user connected');
-});
+// io.on('connection', function (socket) {
+//   console.log('a user connected');
+// });
 
-// Use EJS rendering machine
-app.set('views', __dirname + '/public');
+// set static files path
+app.use(express.static(path.join(__dirname, '..', '..', 'public')));
 app.engine('html', ejs.__express);
 app.set('view engine', 'html');
 
-
 // set up bodyparser middleware
-http.use(bodyparser.json());
-http.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}))
 
-// allow for use of message flash
-http.use(flash());
 
-// set static files path
-http.use(express.static(path.join(__dirname, 'public')));
+//before registering any routes
+app.use((req, res, next) => {
+  if (req.session.userId) {
+    User.getUser(req.session.userId)
+      .then(user => {
+        req.user = user
+        next()
+      })
+  } else {
+    next()
+  }
+})
 
-// connect to the database
-// require('../../db/dbconnect');
 
-// setting up passport.js for authentication
-http.use(passport.initialize());
-http.use(passport.session());
-passport.use(
-  new LocalStrategy(function (username, password, done) {
-    user.findByUsername(username, function (err, user) {
-      if (err) {
-        return done(err);
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'public', 'login.html'))
+})
+
+app.get('/signup', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'public', 'signup.html'))
+})
+
+app.post('/signup', (req, res) => {
+  const {
+    firstname,
+    lastname,
+    email,
+    password
+  } = req.body
+  User.findByCredentials(email, password)
+    .then(user => {
+      if (user) {
+        //TODO: You already have an account... message
+        res.redirect('/login')
+      } else {
+        // No user found
+        User.createUser({
+          firstname,
+          lastname,
+          email,
+          password
+        })
+          .then(() => {
+            console.log('successfully created')
+            res.redirect('/login')
+          })
+          .catch(error => {
+            console.log(error)
+            res.sendStatus(500)
+          })
       }
-      if (!user) {
-        return done(null, false, { message: 'incorrect username' });
+    })
+})
+
+app.post('/login', (req, res) => {
+  const {
+    email,
+    password
+  } = req.body
+  User.findByCredentials(email, password)
+    .then(user => {
+      if (user) {
+        req.session.userId = user.id
+        res.redirect('/')
+      } else {
+        res.redirect('/login')
       }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'incorrect password' });
-      }
-      return done(null, user);
-    });
-  })
-);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect('/login')
+    })
+})
+
+app.get('/logout', (req, res) => {
+  req.session.userId = null;
+  res.redirect('/login')
+})
 
 
+app.use((req, res, next) => {
+  if (!req.user) {
+    res.redirect('/login')
+  } else {
+    next()
+  }
+})
 
-//
-http.get('/', (_, res) => {
-  res.render('index');
+
+// Any non-api routes should be sent the html file as a response
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'public', 'app.html'));
 });
 
-http.get('login', (req, res) => {
-  res.render('login');
-});
 
-http.get('*', (req, res) => {
-  res.sendFile(path.join());
-});
 
 // start server
-http.listen(app.get('port'), () => {
-  console.log('Listening...');
-});
+app.listen(app.get('port'), () => {
+  console.log('Listening on ' + app.get('port') + "...");
+}); 

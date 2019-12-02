@@ -7,85 +7,65 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!-- Material Design for Bootstrap fonts and icons -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
-    />
-
-    <!-- Material Design for Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-      integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-      integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
-      crossorigin="anonymous"
-    />
-
     <!-- personal css  -->
-    <link rel="stylesheet" href="styles.css" />
+    <!-- bulma stylesheet  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
     <title>Consensus</title>
   </head>
   <body>
-    <h1 class="container">Consensus</h1>
-
+    <h1 class="title is-1 has-text-centered">Consensus</h1>
     <!-- entering new account info -->
-    <form class="container">
-      <div class="form-group">
-        <label for="email">Email address</label>
+    <form class="container" method="POST" action="/signup">
+      <div class="field">
+        <label class="label" for="firstname">First name</label>
+        <input
+          type="text"
+          class="input is-rounded"
+          id="firstname"
+          name="firstname"
+          placeholder="First name"
+        />
+      </div>
+      <div class="field">
+        <label class="label" for="lastname">Last name</label>
+        <input
+          type="text"
+          class="input is-rounded"
+          name="lastname"
+          id="lastname"
+          placeholder="Last name"
+        />
+      </div>
+      <div class="field">
+        <label class="label" for="email">Email address</label>
         <input
           type="email"
-          class="form-control"
+          class="input is-rounded"
+          name="email"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
           placeholder="Enter email"
         />
-        <small id="disclaimer" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
+      <div class="field">
+        <label class="label" for="password">Password</label>
         <input
           type="password"
-          class="form-control"
+          class="input is-rounded"
+          name="password"
           id="exampleInputPassword1"
           placeholder="Password"
         />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <!--  scripts  -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.2/bootstrap-material-design.umd.min.js"
-      integrity="sha256-GYcdwXot2kSaBb8kr9o8zDKYBwQ1PCkugjcCYFQS+IA="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
-      integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
-      integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      $(document).ready(function() {
-        $('body').bootstrapMaterialDesign();
-      });
-    </script>
   </body>
 </html>
 <html></html>

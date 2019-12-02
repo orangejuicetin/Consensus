@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 
-var config = {
+module.exports = {
   mode: 'development',
   entry: {
     bundle: __dirname + '/src/frontend/index.js'
@@ -11,17 +11,18 @@ var config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js$|jsx/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/react']
           }
-        }
+        },
       }
     ]
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
   }
 };
-
-module.exports = config;
