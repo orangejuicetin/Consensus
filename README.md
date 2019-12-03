@@ -12,6 +12,4 @@ When you make a poll in your FB Messenger groupchat, you get only about half the
 
 With an intuitive interface and an even better voting system, it's always immediately apparent what the most popular option is as of now and what times most people will be free, while telling you exactly who's free at what times.
 
-Want to add a new suggestion? Put out a new card with maybe a small description of why you think it's the right choice, and post it onto the main board. Want to make a poll on what time is best to meet? - ... to be continued...
-
-(.... will update as project moves along)
+Want to add a new suggestion? Put out a new card with maybe a small description of why you think it's the right choice, and post it onto the main board. Want to make a poll on what time is best to meet? - Consensus does the job for you. ~

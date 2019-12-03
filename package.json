@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack && node ./src/server/server.js",
+    "start": "webpack && source .env && nodemon ./src/server/server.js",
     "watch": "webpack --watch",
-    "server": "nodemon ./src/server/server.js"
+    "server": "source .env && nodemon ./src/server/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,10 +20,12 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
     "ejs": "^2.7.2",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "lodash": "^4.17.15",
+    "mongoose": "^5.7.13",
     "mysql2": "^2.0.1",
     "nodemon": "^2.0.1",
     "passport": "^0.4.0",

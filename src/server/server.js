@@ -11,7 +11,7 @@ const session = require('express-session')
 // Connect to the database
 require('../../db/dbconnect');
 
-const { User } = require('../../db/api')
+const { userAPI } = require('../../db/api')
 
 const app = express();
 // const http = require('http').createServer(app);
@@ -39,18 +39,18 @@ app.use(session({
 }))
 
 
-//before registering any routes
-app.use((req, res, next) => {
-  if (req.session.userId) {
-    User.getUser(req.session.userId)
-      .then(user => {
-        req.user = user
-        next()
-      })
-  } else {
-    next()
-  }
-})
+// //before registering any routes
+// app.use((req, res, next) => {
+//   if (req.session.userId) {
+//     userAPI.getUser(req.session.userId)
+//       .then(user => {
+//         req.user = user
+//         next()
+//       })
+//   } else {
+//     next()
+//   }
+// })
 
 
 app.get('/login', (req, res) => {
@@ -68,14 +68,14 @@ app.post('/signup', (req, res) => {
     email,
     password
   } = req.body
-  User.findByCredentials(email, password)
+  userAPI.findByCredentials(email, password)
     .then(user => {
       if (user) {
         //TODO: You already have an account... message
         res.redirect('/login')
       } else {
         // No user found
-        User.createUser({
+        userAPI.createUser({
           firstname,
           lastname,
           email,
@@ -98,11 +98,12 @@ app.post('/login', (req, res) => {
     email,
     password
   } = req.body
-  User.findByCredentials(email, password)
+  userAPI.findByCredentials(email, password)
     .then(user => {
       if (user) {
-        req.session.userId = user.id
+        req.session.userId = user._id
         res.redirect('/')
+        console.log("!!!!")
       } else {
         res.redirect('/login')
       }
@@ -113,27 +114,31 @@ app.post('/login', (req, res) => {
     })
 })
 
+// todo - add button to main app that will let you log out 
 app.get('/logout', (req, res) => {
   req.session.userId = null;
   res.redirect('/login')
 })
 
 
-app.use((req, res, next) => {
-  if (!req.user) {
-    res.redirect('/login')
-  } else {
-    next()
-  }
-})
+// last check to see if one is logged in or not
+// app.use((req, res, next) => {
+//   if (!req.user) {
+//     res.redirect('/login')
+//   } else {
+//     next()
+//   }
+// })
+
+// attach router used for topic API requests to db here,
+// only accessed if log in approved
+app.use('/votespace', require('./routes/votespaceRouter'));
 
 
 // Any non-api routes should be sent the html file as a response
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'public', 'app.html'));
 });
-
-
 
 // start server
 app.listen(app.get('port'), () => {
