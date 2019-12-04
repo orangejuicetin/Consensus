@@ -37,12 +37,18 @@ const createNewTopic = ({ name, description }) => {
 }
 
 
-const getTopicById = id => {
-  return Topic.findOne({ _id: id })
-}
-
 const getAllTopics = () => {
-  return Topic.find({});
+  return Topic.find({}, (err, topics) => {
+    if (err) {
+      console.log(err)
+    } else {
+      let topicList = [];
+      topics.forEach((topic) => {
+        topicList.push(topic);
+      });
+      return topicList;
+    }
+  });
 }
 
 const findTopic = (name, description) => {
@@ -54,6 +60,16 @@ const findTopic = (name, description) => {
       console.log(err);
     } else {
       return topic;
+    }
+  });
+}
+
+const deleteTopic = (id) => {
+  return Topic.deleteOne({
+    _id: id
+  }, (err) => {
+    if (err) {
+      console.log(err);
     }
   });
 }
@@ -70,19 +86,6 @@ const createNewCard = async ({ id, title, description }) => {
   return Topic.findOneAndUpdate({ _id: id }, { cards: topic.cards }, { new: true })
 }
 
-// const getCardsFromTopic = async id => {
-//   const topic = await Topic.findOne({ _id: id });
-//   topic.cards.map((card) => {
-//     const {
-//       title,
-//       description
-//     } = card;
-//     if (title === queryTitle && description === queryDescription) {
-//       return { card }
-//     }
-//   })
-// }
-
 
 
 // <------------------  Exports  --------------------->
@@ -96,12 +99,11 @@ module.exports = {
   },
   topicAPI: {
     createNewTopic,
-    getTopicById,
     getAllTopics,
-    findTopic
+    findTopic,
+    deleteTopic
   },
   cardAPI: {
-    // getCardFromTopic,
     createNewCard
   }
 }

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux'
 import { addTopic } from '../actions/actions'
 
@@ -24,28 +23,28 @@ class TopicCreator extends React.Component {
 
     render() {
         return (
-            <form className="field" id="create-topic-form">
-                <Label for="topicName">Name</Label>
+            <div className="field" id="create-topic-form">
+                <label for="topicName">Name</label>
                 <input
                     value={this.state.name}
                     onChange={e => this.setState({ name: e.target.value })}
                     placeholder="Topic Name!"
                     className="input is-rounded"
                 />
-                <Label for="description">Description</Label>
+                <label for="topicDescription">Description</label>
                 <input
                     value={this.state.description}
                     onChange={e => this.setState({ description: e.target.value })}
                     placeholder="Add a description!"
                     className="input is-rounded"
                 />
-                <button color="secondary"
+                <a color="secondary"
                     className="button is-light is-small"
                     onClick={() => {
                         this.props.addItem(this.state.name, this.state.description);
-                        this.cancelForm;
-                    }}>Create Topic!</button>
-            </form>
+                        this.cancelForm();
+                    }}>Create Topic!</a>
+            </div>
         )
     }
 }

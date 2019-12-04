@@ -1,9 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux';
-import _ from 'lodash';
-// import Card from './Card';
-import Recommendation from './Recommendation'
-import { Row, Container, Col } from 'reactstrap'
 import TopicCreator from './TopicCreator'
 import TopicContainer from './TopicContainer'
 
@@ -12,28 +7,22 @@ import TopicContainer from './TopicContainer'
 export default class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.props.store;
     }
+
     render() {
         return (
-            <Container fluid>
-                <Row>
-                    <Col sm="4">
+            <div className="container is-fluid">
+                <div className="level ">
+                    <div className="level-left">
                         <TopicCreator />
-                    </Col>
-                    <Col sm="4">
+                    </div>
+                </div>
+                <div className="level ">
+                    <div className="level-right">
                         <TopicContainer />
-                    </Col>
-                </Row>
-            </Container>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return ({
-
-//     })
-// }
-
-// export default connect(null, mapDispatchToProps)(App); 

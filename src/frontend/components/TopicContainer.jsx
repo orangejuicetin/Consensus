@@ -1,27 +1,31 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getTopics } from '../actions/actions';
+import { getTopics } from '../actions/actions'
 import Topic from './Topic'
 
 class TopicContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = this.props.getTopics;
+    componentDidMount() {
+        this.props.getAllTopics();
     }
 
     render() {
+        console.log(this.props.topics);
         return (
-            <div>
-                <p>sample code</p>
+            <div className="container">
+                {this.props.topics.map((topic) =>
+                    (<Topic name={topic.name} description={topic.description} id={topic._id} />)
+                )}
             </div>
         )
     }
 }
 
-const mapDispatch = (dispatch) => {
-    return {
-        getItems: () => dispatch(getTopics())
-    };
+const mapState = (state) => {
+    return { topics: state.allTopics }
 }
 
-export default connect(null, mapDispatch)(TopicContainer); 
+const mapDispatch = dispatch => {
+    return { getAllTopics: () => dispatch(getTopics()) }
+}
+
+export default connect(mapState, mapDispatch)(TopicContainer); 

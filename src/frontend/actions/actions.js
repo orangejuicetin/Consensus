@@ -1,57 +1,51 @@
 import axios from 'axios'
 import {
-    // UPVOTE,
-    // DOWNVOTE,
     ADD_TOPIC,
-    GET_ALL_TOPICS
-    // LOGIN 
+    GET_ALL_TOPICS,
+    DELETE_TOPIC
 } from './types'
-
-// const login = () => {
-//     return dispatch => {
-//         axios.post('/login', { username, password }).then(dispatch({ type: LOGIN }))
-//     };
-// }
-
-// const upvote = () => {
-//     return dispatch => {
-//         axios
-//             .post('/', { vote: null })
-//     };
-// }
 
 export const addTopic = (name, description) => {
     return dispatch => {
         axios.post('/votespace/add-topic', { name: name, description: description })
-            .then(({ topics }) => {
+            .then(({ data: topics }) => {
                 dispatch({
                     type: ADD_TOPIC,
                     payload: topics
                 });
             })
             .catch(error => {
-                dispatch({
-                    type: ADD_TOPIC_FAILED,
-                    error
-                });
+                console.log(error)
             });
     }
 }
 
 export const getTopics = () => {
     return dispatch => {
-        axios.get('/topics')
-            .then(({ topics }) => {
+        axios.get('/votespace/topics')
+            .then(({ data: topicList }) => {
                 dispatch({
                     type: GET_ALL_TOPICS,
-                    payload: topics
+                    payload: topicList
                 });
             })
             .catch(error => {
+                console.log(error)
+            });
+    }
+}
+
+export const deleteTopic = (id) => {
+    return dispatch => {
+        axios.post('/votespace/delete-topic', { id: id })
+            .then(({ data: topicList }) => {
                 dispatch({
-                    type: GET_ALL_TOPICS_FAILED,
-                    error
+                    type: GET_ALL_TOPICS,
+                    payload: topicList
                 });
+            })
+            .catch(error => {
+                console.log(error)
             });
     }
 }

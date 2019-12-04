@@ -1,24 +1,29 @@
 import React from 'react'
-import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { connect } from 'react-redux'
+import { deleteTopic } from '../actions/actions'
 
 class Topic extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     render() {
         return (
-            <Card body>
-                <CardBody>
-                    <CardTitle>Example Recommendation</CardTitle>
-                    <CardText>This is an example of a card</CardText>
-                    <CardText>
-                        <small className="text-muted">Last updated 3 mins ago</small>
-                    </CardText>
-                </CardBody>
-            </Card>
+            <div className="card">
+                <div className="card-content">
+                    {/* <a className="delete is-small" onClick={this.props.deleteTopic(this.props.id)}></a> */}
+                    <p className="title">
+                        {this.props.name}
+                    </p>
+                    <p className="subtitle">
+                        {this.props.description}
+                    </p>
+                </div>
+            </div>
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteTopic: (id) => dispatch(deleteTopic(id))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Topic); 

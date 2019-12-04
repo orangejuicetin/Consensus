@@ -5,7 +5,6 @@ import mainReducer from './reducers/mainReducer'
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import App from './components/App';
-// import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Enables asynchronous actions. Docs here: https://github.com/reduxjs/redux-thunk
 const store = createStore(mainReducer, applyMiddleware(thunk));
