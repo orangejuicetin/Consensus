@@ -4,10 +4,11 @@ import { deleteTopic } from '../actions/actions'
 
 class Topic extends React.Component {
     render() {
+        console.log(this.props)
         return (
             <div className="card">
                 <div className="card-content">
-                    {/* <a className="delete is-small" onClick={this.props.deleteTopic(this.props.id)}></a> */}
+                    <a className="delete is-small" onClick={() => { this.props.deleteTopic(this.props.id) }}></a>
                     <p className="title">
                         {this.props.name}
                     </p>

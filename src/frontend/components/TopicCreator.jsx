@@ -12,7 +12,7 @@ class TopicCreator extends React.Component {
         this.cancelForm = this.cancelForm.bind(this);
     }
 
-    cancelForm(event) {
+    cancelForm() {
         this.setState(
             {
                 name: '',
@@ -23,27 +23,29 @@ class TopicCreator extends React.Component {
 
     render() {
         return (
-            <div className="field" id="create-topic-form">
-                <label for="topicName">Name</label>
-                <input
-                    value={this.state.name}
-                    onChange={e => this.setState({ name: e.target.value })}
-                    placeholder="Topic Name!"
-                    className="input is-rounded"
-                />
-                <label for="topicDescription">Description</label>
-                <input
-                    value={this.state.description}
-                    onChange={e => this.setState({ description: e.target.value })}
-                    placeholder="Add a description!"
-                    className="input is-rounded"
-                />
-                <a color="secondary"
-                    className="button is-light is-small"
-                    onClick={() => {
-                        this.props.addItem(this.state.name, this.state.description);
-                        this.cancelForm();
-                    }}>Create Topic!</a>
+            <div className="box tile is-child">
+                <div className="field" id="create-topic-form" >
+                    <label>Name</label>
+                    <input
+                        value={this.state.name}
+                        onChange={e => this.setState({ name: e.target.value })}
+                        placeholder="Topic Name!"
+                        className="input is-rounded is-primary"
+                    />
+                    <label>Description</label>
+                    <textarea
+                        value={this.state.description}
+                        onChange={e => this.setState({ description: e.target.value })}
+                        placeholder="Add a description!"
+                        className="textarea is-rounded is-primary"
+                    />
+                    <button color="secondary"
+                        className="button is-light is-small"
+                        onClick={() => {
+                            this.props.addItem(this.state.name, this.state.description);
+                            this.cancelForm();
+                        }}>Create Topic!</button>
+                </div >
             </div>
         )
     }

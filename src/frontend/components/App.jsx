@@ -11,15 +11,17 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <div className="container is-fluid">
-                <div className="level ">
-                    <div className="level-left">
+            <div className="columns">
+                <div className="column is-narrow-desktop">
+                    <div className="tile is-parent is-vertical">
                         <TopicCreator />
                     </div>
                 </div>
-                <div className="level ">
-                    <div className="level-right">
-                        <TopicContainer />
+                <div className="column">
+                    <div className="tile is-parent">
+                        <div className="tile">
+                            <TopicContainer />
+                        </div>
                     </div>
                 </div>
             </div>

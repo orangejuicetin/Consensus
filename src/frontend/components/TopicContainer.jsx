@@ -11,7 +11,7 @@ class TopicContainer extends React.Component {
     render() {
         console.log(this.props.topics);
         return (
-            <div className="container">
+            <div className="tile">
                 {this.props.topics.map((topic) =>
                     (<Topic name={topic.name} description={topic.description} id={topic._id} />)
                 )}

@@ -33,7 +33,6 @@ votespaceRouter.post('/add-topic', (req, res, next) => {
                     description
                 })
                     .then(() => {
-                        console.log('successfully created new topic')
                         topicAPI.getAllTopics().then((data) => res.json(data))
                     })
                     .catch(error => {
@@ -51,7 +50,6 @@ votespaceRouter.post('/add-topic', (req, res, next) => {
 votespaceRouter.post('/delete-topic', (req, res, next) => {
     const { id } = req.body;
     topicAPI.deleteTopic(id).then(() => {
-        console.log('successfully deleted topic')
         topicAPI.getAllTopics().then((data) => res.json(data))
     }).catch((error) => {
         console.log(error)
@@ -80,7 +78,6 @@ votespaceRouter.post('/add-card', (req, res, next) => {
                     description
                 })
                     .then(() => {
-                        console.log('successfully created new Card')
                         res.redirect('/votespace')
                     })
                     .catch(error => {
