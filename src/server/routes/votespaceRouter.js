@@ -4,7 +4,6 @@ const votespaceRouter = require('express').Router();
 // get all topics
 votespaceRouter.get('/topics', (req, res, next) => {
     topicAPI.getAllTopics().then((data) => {
-        console.log('data retrieved!')
         res.json(data)
     }).catch(err => {
         console.log(err)
@@ -24,7 +23,6 @@ votespaceRouter.post('/add-topic', (req, res, next) => {
     topicAPI.findTopic(name, description)
         .then(topic => {
             if (topic) {
-                //TODO: You already this card
                 res.status(400).send('Already have this topic')
             } else {
                 // No user found
@@ -59,33 +57,29 @@ votespaceRouter.post('/delete-topic', (req, res, next) => {
 
 
 // <--------------------------->
-// TODO: adding a card
+// Upvoting
 
-votespaceRouter.post('/add-card', (req, res, next) => {
-    const {
-        title,
-        description
-    } = req.body
-    cardAPI.findCard(title, description)
-        .then(card => {
-            if (card) {
-                //TODO: You already this card
-                res.redirect('/votespace')
-            } else {
-                // No user found
-                cardAPI.createNewCard({
-                    title,
-                    description
-                })
-                    .then(() => {
-                        res.redirect('/votespace')
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        res.sendStatus(500)
-                    })
-            }
-        })
+votespaceRouter.post('/upvote', (req, res, next) => {
+    const { id } = req.body
+    topicAPI.upvote(id).then(() => {
+        topicAPI.getAllTopics().then((data) => res.json(data))
+    }).catch((error) => {
+        console.log(error)
+        res.sendStatus(500)
+    })
+})
+
+// <--------------------------->
+// Downvoting
+
+votespaceRouter.post('/downvote', (req, res, next) => {
+    const { id } = req.body
+    topicAPI.downvote(id).then(() => {
+        topicAPI.getAllTopics().then((data) => res.json(data))
+    }).catch((error) => {
+        console.log(error)
+        res.sendStatus(500)
+    })
 })
 
 module.exports = votespaceRouter; 

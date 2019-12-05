@@ -1,14 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 
 export default class Recommendation extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     isFlipped = false,
-        // };
-        // this.cardClicked = this.cardClicked.bind(this);
     }
 
     // cardClicked(e) {
@@ -18,15 +13,21 @@ export default class Recommendation extends React.Component {
 
     render() {
         return (
-            <Card body>
-                <CardBody>
-                    <CardTitle>Example Recommendation</CardTitle>
-                    <CardText>This is an example of a card</CardText>
-                    <CardText>
-                        <small className="text-muted">Last updated 3 mins ago</small>
-                    </CardText>
-                </CardBody>
-            </Card>
+            <div className="card">
+                <div className="card-content">
+                    <p className="title">Example Recommendation</p>
+                    <p className="subtitle">This is an example of a card</p>
+                </div>
+            </div>
         )
     }
 }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         upvote: (id) => dispatch(upvote(id)), 
+//         downvote: ()
+//     };
+// };
+
+// export default connect(null, mapDispatchToProps)(Recommendation); 

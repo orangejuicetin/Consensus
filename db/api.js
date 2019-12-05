@@ -32,7 +32,8 @@ const getUser = id => {
 const createNewTopic = ({ name, description }) => {
   return Topic.create({
     name,
-    description
+    description,
+    vote: 0
   });
 }
 
@@ -62,6 +63,24 @@ const findTopic = (name, description) => {
       return topic;
     }
   });
+}
+
+const upvote = (id) => {
+  return Topic.findByIdAndUpdate(id, { $inc: { vote: 0.5 } }, { new: true },
+    (err, topic) => {
+      if (err) {
+        console.log(err)
+      }
+    })
+}
+
+const downvote = (id) => {
+  return Topic.findByIdAndUpdate(id, { $inc: { vote: -0.5 } }, { new: true },
+    (err, topic) => {
+      if (err) {
+        console.log(err)
+      }
+    })
 }
 
 const deleteTopic = (id) => {
@@ -101,6 +120,8 @@ module.exports = {
     createNewTopic,
     getAllTopics,
     findTopic,
+    upvote,
+    downvote,
     deleteTopic
   },
   cardAPI: {

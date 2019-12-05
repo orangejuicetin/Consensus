@@ -39,18 +39,18 @@ app.use(session({
 }))
 
 
-// //before registering any routes
-// app.use((req, res, next) => {
-//   if (req.session.userId) {
-//     userAPI.getUser(req.session.userId)
-//       .then(user => {
-//         req.user = user
-//         next()
-//       })
-//   } else {
-//     next()
-//   }
-// })
+//before registering any routes
+app.use((req, res, next) => {
+  if (req.session.userId) {
+    userAPI.getUser(req.session.userId)
+      .then(user => {
+        req.user = user
+        next()
+      })
+  } else {
+    next()
+  }
+})
 
 
 app.get('/login', (req, res) => {
@@ -82,7 +82,6 @@ app.post('/signup', (req, res) => {
           password
         })
           .then(() => {
-            console.log('successfully created')
             res.redirect('/login')
           })
           .catch(error => {
@@ -103,7 +102,6 @@ app.post('/login', (req, res) => {
       if (user) {
         req.session.userId = user._id
         res.redirect('/')
-        console.log("!!!!")
       } else {
         res.redirect('/login')
       }
@@ -122,13 +120,13 @@ app.get('/logout', (req, res) => {
 
 
 // last check to see if one is logged in or not
-// app.use((req, res, next) => {
-//   if (!req.user) {
-//     res.redirect('/login')
-//   } else {
-//     next()
-//   }
-// })
+app.use((req, res, next) => {
+  if (!req.user) {
+    res.redirect('/login')
+  } else {
+    next()
+  }
+})
 
 // attach router used for topic API requests to db here,
 // only accessed if log in approved

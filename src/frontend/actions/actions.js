@@ -2,16 +2,18 @@ import axios from 'axios'
 import {
     ADD_TOPIC,
     GET_ALL_TOPICS,
-    DELETE_TOPIC
+    DELETE_TOPIC,
+    UPVOTE,
+    DOWNVOTE
 } from './types'
 
 export const addTopic = (name, description) => {
     return dispatch => {
         axios.post('/votespace/add-topic', { name: name, description: description })
-            .then(({ data: topics }) => {
+            .then(({ data: topicList }) => {
                 dispatch({
                     type: ADD_TOPIC,
-                    payload: topics
+                    payload: topicList
                 });
             })
             .catch(error => {
@@ -40,7 +42,37 @@ export const deleteTopic = (id) => {
         axios.post('/votespace/delete-topic', { id: id })
             .then(({ data: topicList }) => {
                 dispatch({
-                    type: GET_ALL_TOPICS,
+                    type: DELETE_TOPIC,
+                    payload: topicList
+                });
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+}
+
+export const upVote = (id) => {
+    return dispatch => {
+        axios.post('/votespace/upvote', { id: id })
+            .then(({ data: topicList }) => {
+                dispatch({
+                    type: UPVOTE,
+                    payload: topicList
+                });
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+}
+
+export const downVote = (id) => {
+    return dispatch => {
+        axios.post('/votespace/downvote', { id: id })
+            .then(({ data: topicList }) => {
+                dispatch({
+                    type: DOWNVOTE,
                     payload: topicList
                 });
             })

@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { deleteTopic } from '../actions/actions'
+import { deleteTopic, upVote, downVote } from '../actions/actions'
 
 class Topic extends React.Component {
     render() {
-        console.log(this.props)
         return (
             <div className="card">
                 <div className="card-content">
@@ -12,9 +11,20 @@ class Topic extends React.Component {
                     <p className="title">
                         {this.props.name}
                     </p>
-                    <p className="subtitle">
-                        {this.props.description}
+                    <p className="levels">
+                        <p className="subtitle level-item">
+                            {this.props.description}
+                        </p>
+                        <p className="subtitle level-item">
+                            {this.props.voteCount}
+                        </p>
                     </p>
+                </div>
+                <div className="card-footer">
+                    <div className="buttons">
+                        <button className="button is-small is-light has-text-centered" onClick={() => { this.props.upvote(this.props.id) }}>up</button>
+                        <button className="button is-small is-light has-text-centered" onClick={() => { this.props.downvote(this.props.id) }}>down</button>
+                    </div>
                 </div>
             </div>
         )
@@ -23,7 +33,9 @@ class Topic extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteTopic: (id) => dispatch(deleteTopic(id))
+        deleteTopic: (id) => dispatch(deleteTopic(id)),
+        upvote: (id) => dispatch(upVote(id)),
+        downvote: (id) => dispatch(downVote(id))
     };
 };
 

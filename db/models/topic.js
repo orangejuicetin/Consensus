@@ -18,13 +18,14 @@ const mongoose = require('mongoose');
 const TopicSchema = mongoose.Schema({
     name: { type: String, required: true },
     description: String,
-    cards: [
-        {
-            title: { type: String, required: true },
-            description: String,
-            vote: Number
-        }
-    ]
+    // cards: [
+    //     {
+    //         title: { type: String, required: true },
+    //         description: String,
+    //         vote: Number
+    //     }
+    // ]
+    vote: Number
 });
 
 module.exports = mongoose.model('Topic', TopicSchema); 

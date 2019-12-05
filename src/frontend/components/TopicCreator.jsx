@@ -30,14 +30,15 @@ class TopicCreator extends React.Component {
                         value={this.state.name}
                         onChange={e => this.setState({ name: e.target.value })}
                         placeholder="Topic Name!"
-                        className="input is-rounded is-primary"
+                        className="input is-info"
                     />
                     <label>Description</label>
                     <textarea
                         value={this.state.description}
                         onChange={e => this.setState({ description: e.target.value })}
                         placeholder="Add a description!"
-                        className="textarea is-rounded is-primary"
+                        className="textarea is-rounded is-info"
+                        rows="11"
                     />
                     <button color="secondary"
                         className="button is-light is-small"

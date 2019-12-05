@@ -1,17 +1,18 @@
 import {
     ADD_TOPIC,
     GET_ALL_TOPICS,
-    DELETE_TOPIC
+    DELETE_TOPIC,
+    UPVOTE,
+    DOWNVOTE
 } from '../actions/types'
 
 const initialState = {
-    allTopics: []
+    allTopics: [],
 }
 
 
 const topicReducer = (state = initialState, action) => {
-    const stateCopy = { ...state }
-    // stateCopy.allTopics = state.allTopics.slice()
+    const stateCopy = { ...state } // in case there is no action dispatched to reducer
     switch (action.type) {
         case ADD_TOPIC:
             return {
@@ -24,6 +25,16 @@ const topicReducer = (state = initialState, action) => {
                 allTopics: action.payload
             }
         case DELETE_TOPIC:
+            return {
+                ...state,
+                allTopics: action.payload
+            }
+        case UPVOTE:
+            return {
+                ...state,
+                allTopics: action.payload
+            }
+        case DOWNVOTE:
             return {
                 ...state,
                 allTopics: action.payload
