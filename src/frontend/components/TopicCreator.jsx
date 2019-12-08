@@ -5,14 +5,14 @@ import { addTopic } from '../actions/actions'
 class TopicCreator extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { // only state will be the input boxes and what they contain
             name: '',
             description: ''
         }
         this.cancelForm = this.cancelForm.bind(this);
     }
 
-    cancelForm() {
+    cancelForm() { // function for just clearing out the input boxes once submitted
         this.setState(
             {
                 name: '',
